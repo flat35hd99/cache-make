@@ -22,8 +22,14 @@ jobs:
       - name: Check pre-environment
         run: ls -la
       
+      - name: Check dist directory
+        run: ls -la dist/
+      
       - name: Build
         run: make
 
       - name: Check post-environment
         run: ls -la
+      
+      - name: Check dist directory
+        run: ls -la dist/
