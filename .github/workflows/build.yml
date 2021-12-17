@@ -1,0 +1,29 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup cache
+        uses: actions/cache@v2
+        with:
+          path: dist
+          key: ${{ runner.os }}-makefile-${{ hashFiles('makefile') }}
+          restore-keys: |
+            ${{ runner.os }}-makefile-
+
+      - name: Check pre-environment
+        run: ls -la
+      
+      - name: Build
+        run: make
+
+      - name: Check post-environment
+        run: ls -la
