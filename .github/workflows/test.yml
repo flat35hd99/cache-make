@@ -71,7 +71,7 @@ jobs:
         uses: ./
         with:
           before-ref: v0.0.1
-          current-ref: cf4174a153409cb67ca90e85585234b7f851e17b
+          after-ref: cf4174a153409cb67ca90e85585234b7f851e17b
 
       - name: Build
         run: make

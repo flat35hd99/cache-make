@@ -4,10 +4,10 @@ branding:
   icon: box
   color: red
 inputs:
-  past-ref:
+  before-ref:
     description: "commit id, tag, etc."
     required: false
-  current-ref:
+  after-ref:
     description: "commit id, tag, etc."
     required: false
 runs:
@@ -15,17 +15,17 @@ runs:
   steps:
     - run: |
         # Get past reference
-        if [ -z ${{ inputs.past-ref }} ]; then
+        if [ -z ${{ inputs.before-ref }} ]; then
           before=$(git rev-parse HEAD |xargs git cat-file -p | grep parent | awk '{print $2}')
         else
-          before=${{ inputs.past-ref }}
+          before=${{ inputs.before-ref }}
         fi;
 
         # Get current reference
-        if [ -z ${{ inputs.current-ref }} ]; then
+        if [ -z ${{ inputs.after-ref }} ]; then
           after=${{ github.sha }}
         else
-          after=${{ inputs.current-ref }}
+          after=${{ inputs.after-ref }}
         fi;
 
         # Change time
