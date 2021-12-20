@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       
       - name: Setup cache
         uses: actions/cache@v2
@@ -25,6 +27,9 @@ jobs:
       - name: Check dist directory
         run: ls -la --full-time dist/
       
+      - name: Send unchanged files to past
+        run: ./get_unchanged_files.sh $(git rev-parse HEAD) $(git rev-parse HEAD |xargs git cat-file -p | grep parent | awk '{print $2}')
+
       - name: Build
         run: make
 
