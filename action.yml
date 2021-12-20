@@ -1,0 +1,21 @@
+name: 'cache-make'
+description: 'Use makefile with action/cache'
+inputs:
+  past-ref:
+    description: "commit id, tag, etc."
+    required: false
+  current-ref:
+    description: "commit id, tag, etc."
+    required: false
+    default: ${{ github.sha }}
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        if [ -v ${{ inputs.past-ref }} ]; then
+          before=${{ inputs.past-ref }} || before=$(git rev-parse HEAD |xargs git cat-file -p | grep parent | awk '{print $2}')
+        fi;
+        after=${{ input.current-ref }}
+
+        ${{ github.action_path }}./get_unchanged_files.sh $before $after
+      shell: bash
