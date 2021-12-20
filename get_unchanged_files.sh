@@ -8,7 +8,7 @@ echo $after;
 
 git ls-files | while read -r line;
 do
-    st=$(git diff --name-only $before $after $line);
+    st=$(git diff --name-status $before $after $line);
     echo $st;
     echo "Unchanged files:";
     if [ -n $st ]; then
