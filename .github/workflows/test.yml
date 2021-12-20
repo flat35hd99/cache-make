@@ -1,0 +1,78 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-default:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+      - name: Setup cache
+        uses: actions/cache@v2
+        with:
+          path: test/dist
+          key: ${{ runner.os }}-makefile-${{ hashFiles('test/makefile') }}
+          restore-keys: |
+            ${{ runner.os }}-makefile-
+
+      - name: Send files to past without config
+        use: ./action.yml
+
+      - name: Build
+        run: make
+        working-directory: test/
+
+  test-set-past:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+      - name: Setup cache
+        uses: actions/cache@v2
+        with:
+          path: test/dist
+          key: ${{ runner.os }}-makefile-${{ hashFiles('test/makefile') }}
+          restore-keys: |
+            ${{ runner.os }}-makefile-
+
+      - name: Send files to past
+        use: ./action.yml
+        with:
+          before-ref: v0.0.1
+
+      - name: Build
+        run: make
+        working-directory: test/
+
+  test-set-both:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      
+      - name: Setup cache
+        uses: actions/cache@v2
+        with:
+          path: test/dist
+          key: ${{ runner.os }}-makefile-${{ hashFiles('test/makefile') }}
+          restore-keys: |
+            ${{ runner.os }}-makefile-
+
+      - name: Send files to past
+        use: ./action.yml
+        with:
+          before-ref: v0.0.1
+          current-ref: cf4174a153409cb67ca90e85585234b7f851e17b
+
+      - name: Build
+        run: make
+        working-directory: test/
