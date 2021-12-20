@@ -28,3 +28,7 @@ jobs:
       - name: Build
         run: make
 ```
+
+## Use case and anti pattern
+
+CI/CD is a strong way to demonstrate reproducibility. Without knowledge and enough consideration, use of this action may cause some problems.
