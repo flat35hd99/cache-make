@@ -10,15 +10,24 @@ inputs:
   current-ref:
     description: "commit id, tag, etc."
     required: false
-    default: ${{ github.sha }}
 runs:
   using: "composite"
   steps:
     - run: |
-        if [ -v ${{ inputs.past-ref }} ]; then
-          before=${{ inputs.past-ref }} || before=$(git rev-parse HEAD |xargs git cat-file -p | grep parent | awk '{print $2}')
+        # Get past reference
+        if [ -z ${{ inputs.past-ref }} ]; then
+          before=$(git rev-parse HEAD |xargs git cat-file -p | grep parent | awk '{print $2}')
+        else
+          before=${{ inputs.past-ref }}
         fi;
-        after=${{ input.current-ref }}
 
-        ${{ github.action_path }}./get_unchanged_files.sh $before $after
+        # Get current reference
+        if [ -z ${{ input.current-ref }} ]; then
+          after=${{ github.sha }}
+        else
+          after=$(git rev-parse HEAD |xargs git cat-file -p | grep parent | awk '{print $2}')
+        fi;
+
+        # Change time
+        ${{ github.action_path }}/get_unchanged_files.sh $before $after
       shell: bash
