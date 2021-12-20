@@ -29,5 +29,6 @@ runs:
         fi;
 
         # Change time
+        cd $GITHUB_ACTION_PATH
         ${{ github.action_path }}/get_unchanged_files.sh $before $after
       shell: bash
