@@ -22,10 +22,10 @@ runs:
         fi;
 
         # Get current reference
-        if [ -z ${{ input.current-ref }} ]; then
+        if [ -z ${{ inputs.current-ref }} ]; then
           after=${{ github.sha }}
         else
-          after=$(git rev-parse HEAD |xargs git cat-file -p | grep parent | awk '{print $2}')
+          after=${{ inputs.current-ref }}
         fi;
 
         # Change time
