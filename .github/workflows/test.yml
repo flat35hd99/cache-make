@@ -22,7 +22,7 @@ jobs:
             ${{ runner.os }}-makefile-
 
       - name: Send files to past without config
-        use: ./action.yml
+        uses: ./action.yml
 
       - name: Build
         run: make
@@ -44,7 +44,7 @@ jobs:
             ${{ runner.os }}-makefile-
 
       - name: Send files to past
-        use: ./action.yml
+        uses: ./action.yml
         with:
           before-ref: v0.0.1
 
@@ -68,7 +68,7 @@ jobs:
             ${{ runner.os }}-makefile-
 
       - name: Send files to past
-        use: ./action.yml
+        uses: ./action.yml
         with:
           before-ref: v0.0.1
           current-ref: cf4174a153409cb67ca90e85585234b7f851e17b
