@@ -1,7 +1,8 @@
 name: 'cache-make'
 description: 'Use makefile with action/cache'
-label: box
-color: red
+branding:
+  icon: box
+  color: red
 inputs:
   past-ref:
     description: "commit id, tag, etc."
