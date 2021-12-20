@@ -16,7 +16,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: test/dist
-          key: ${{ runner.os }}-makefile-${{ hashFiles('test/makefile') }}
+          key: ${{ runner.os }}-makefile-${{ github.sha }}-${{ hashFiles('**/makefile') }}
           restore-keys: |
             ${{ runner.os }}-makefile-
       # This workflow change updated time of files was not changed.
